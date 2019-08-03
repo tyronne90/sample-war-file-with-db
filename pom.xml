@@ -79,7 +79,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>StudentApp</finalName>
+		<finalName>studentapp</finalName>
 	</build>
 
 </project>

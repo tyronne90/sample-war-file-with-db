@@ -29,7 +29,7 @@ public class SpringAppWarApplication extends SpringBootServletInitializer{
 		 String saveJson = "savestudent -> /student -> {\"name\":\"John\",\"age\":23}";
 		 String getJson = "getAllStudents -> /students ";
 		 String display = saveJson;
-	        return "Welcome to the Student App"+ " => " + display + " => " + getJson;
+	        return "Welcome to the Student App"+ " => " + display + " => " + getJson + " v2";
 	    }
 	 
 	 @PostMapping("/student")
