@@ -22,10 +22,10 @@ public class StudentController {
 
 	@GetMapping("/")	    
 	 public String home() {
-		 String saveJson = "savestudent -> /student -> {\"name\":\"John\",\"age\":23}";
-		 String getJson = "getAllStudents -> /students ";
+		 String saveJson = "savestudent -> studentapp/api/student -> {\"name\":\"John\",\"age\":23}";
+		 String getJson = "getAllStudents -> studentapp/api/students ";
 		 String display = saveJson;
-	        return "Welcome to the Student Apps"+ " => " + display + " => " + getJson + " v2";
+	        return "Welcome to the Student Apps"+ " => " + display + " => " + getJson;
 	    }
 	 
 	 @PostMapping("/student")
