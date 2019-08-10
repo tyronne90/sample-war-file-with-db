@@ -1,50 +1,53 @@
 package com.sgic.warapp;
 
-import java.util.List;
+import java.util.Collections;
 
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.context.annotation.Bean;
 
-import com.sgic.warapp.entity.Student;
-import com.sgic.warapp.service.StudentService;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@RestController
+
 @SpringBootApplication
+@EnableSwagger2
 public class SpringAppWarApplication extends SpringBootServletInitializer{
 	
-	@Autowired
-	private StudentService studentService;
-
-	 @RequestMapping("/")	    
-	 public String home() {
-		 String saveJson = "savestudent -> /student -> {\"name\":\"John\",\"age\":23}";
-		 String getJson = "getAllStudents -> /students ";
-		 String display = saveJson;
-	        return "Welcome to the Student App"+ " => " + display + " => " + getJson + " v2";
-	    }
-	 
-	 @PostMapping("/student")
-	 public Student saveStudent(@Valid @RequestBody Student student){
-		 studentService.saveStudent(student);
-		 return studentService.findOneStudent(student.getId());
-	 }
-	 
-	 @GetMapping("/students")
-	 public List<Student> getAllStudent(){
-		 return studentService.getAllStudent();
-	 }
-	 
+	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringAppWarApplication.class, args);
+	}
+	
+	@Bean
+	public Docket swaggerConfiguration() {
+		return new Docket(DocumentationType.SWAGGER_2)
+				.select()
+				.apis(RequestHandlerSelectors.basePackage("com.sgic.warapp.controller"))
+				.paths(PathSelectors.ant("/api/*"))
+				.build()
+				.apiInfo(apiDetails());
+		
+	}
+	
+	
+	private ApiInfo apiDetails() {
+		return new ApiInfo(
+				"Student App API",
+				"Sample API for Student App",
+				"1.0",
+				"Free to User",
+				new springfox.documentation.service.Contact("Tyron", "http://www.google.com", "tyronne90@gmail.com"),
+				"API License",
+				"http://www.google.com",
+				Collections.emptyList()
+		);
+		
 	}
 
 }
